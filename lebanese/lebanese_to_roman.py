@@ -4,16 +4,6 @@ def arabic_to_roman_replace(test_word):
     """program for translating arabic characters into roman arabic script"""
     arabic_word = test_word
 
-    dictionary_vowels = {
-        "َ": "a",
-        "ً": "////",
-        "ُ": "u",
-        "ٌ": "////",
-        "ٍ": "////",
-        "ِ": "i",
-        "ْ": "////",
-    }
-
     """
     testWord = "دَرْس"
     print(testWord, sep=" ")
@@ -23,7 +13,7 @@ def arabic_to_roman_replace(test_word):
     print()
     roman_characters = ""
     for letter in arabic_word:
-        print(letter, "test")
+        #print(letter)
         if letter in dictionary:
             roman_characters += Dictionary.get_lebanese_to_roman_char(letter) #.roman_text #Dictionary.get_lebanese_to_roman_char(letter)
         elif letter in dictionary_vowels:

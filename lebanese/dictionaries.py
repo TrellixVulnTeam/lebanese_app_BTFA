@@ -44,6 +44,5 @@ class Dictionary:
     @staticmethod
     def get_lebanese_to_roman_char(letter):
         arabic_char = letter
-        dictionary = dictionary
         roman_text = dictionary[arabic_char]
         return roman_text
