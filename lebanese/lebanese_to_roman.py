@@ -1,4 +1,4 @@
-from dictionaries import Dictionary
+from dictionaries import *
 
 def arabic_to_roman_replace(test_word):
     """program for translating arabic characters into roman arabic script"""
@@ -23,9 +23,9 @@ def arabic_to_roman_replace(test_word):
     print()
     roman_characters = ""
     for letter in arabic_word:
-        #print(letter)
-        if letter in Dictionary.lebanese_dictionary(letter):
-            roman_characters += Dictionary.lebanese_dictionary(letter)
+        print(letter, "test")
+        if letter in Dictionary.set_lebanese_dictionary():
+            roman_characters += Dictionary.get_lebanese_to_roman_char(letter) #.roman_text #Dictionary.get_lebanese_to_roman_char(letter)
         elif letter in dictionary_vowels:
             roman_characters += dictionary_vowels[letter]
             # print("test")
