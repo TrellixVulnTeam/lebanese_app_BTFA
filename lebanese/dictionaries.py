@@ -36,6 +36,9 @@ dictionary_vowels = {"َ": "a",
                     "ِ": "i",
                     "ْ": "////"}
 
+known_first_letter_sound_shifts = {"ص": "sa",
+                                   "ب":"bi",
+                                   "ك": "ki"}
 
 class Dictionary:
     def __init__(self):

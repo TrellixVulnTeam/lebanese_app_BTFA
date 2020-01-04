@@ -1,0 +1,19 @@
+FloatLayout:
+    lebanese_arabic_text_input: lebanese_arabic
+    Label:
+        text: "Lebanese Arabic"
+        pos: 655, 400
+        size: 100, 30
+    TextInput:
+        size_hint: .2, .2
+        pos_hint: {'center_x': .6, 'center_y': .8}
+        multiline: True
+        text: "Input arabic word here to have it converted: "
+        #on_release:
+        #    root.lebanese_textinput.text
+           # breakdown_lebanese.arabic_break_down(test_word)
+    Button:
+        text: "Save Name"
+        pos: 870,400
+        size: 100,30
+        on_release: root.submit_arabic()
