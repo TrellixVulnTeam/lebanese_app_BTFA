@@ -9,7 +9,9 @@ import bidi.algorithm
 
 
 
-def get_mirrored_arabic(arabic_words):
+def get_mirrored_arabic(arabic):
+    arabic_words = arabic
+    #print(arabic_words)
     reshaped_text = arabic_reshaper.reshape(arabic_words)
     bidi_text = bidi.algorithm.get_display(reshaped_text)
     return bidi_text
