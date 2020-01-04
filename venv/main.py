@@ -30,6 +30,7 @@ from kivy.uix.button import Button
 from kivy.uix.widget import Widget
 from kivy.uix.image import Image
 from kivy.properties import ObjectProperty, NumericProperty, StringProperty
+from kivy.core.window import Window
 
 import kivy
 
@@ -41,11 +42,27 @@ from kivy.app import App
 class TranslatorWidget(Widget):
     lebanese_arabic_text_input = ObjectProperty()
 
+    import arabic_reshaper
+    from bidi.algorithm import get_display
+    def get_mirrored_arabic(arabic):
+        arabic_words = arabic
+        reshaped_text = arabic_reshaper.reshape(arabic_words)
+        bidi_text = get_display(reshaped_text)
+        return bidi_text
+
+
+class KeyDown(App):
+    pass
+
     #test_word = StringProperty("")
     #value = StringProperty("")
 
 class MyApp(App):
-    pass
+    def build(self):
+        Window.bind(on_key_down=self.key_action)
+        return Widget()
+    def key_action(self, *args):
+        print("got a key event: %s" % list(args))
    # def build(self):
      #   return TranslatorWidget()
 

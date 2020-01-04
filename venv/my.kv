@@ -28,6 +28,9 @@
 
 #:import get_mirrored_arabic lebanese.arabic_direction.get_mirrored_arabic
 
+#import arabic_reshaper arabic_reshaper
+#import algorithm bidi.algorithm
+
 
 FloatLayout:
     font_name: 'ariel'
@@ -66,10 +69,25 @@ FloatLayout:
         id: arabic_input
         size_hint: .8, .2
         pos_hint: {'center_x': .5, 'center_y': .78}
-        multiline: True
+        multiline: False
         text: ''
+        #text_autoupdate: True
+
+        #THIS IS THE BUG! ON_TEXT MAKES IT SWAP BACK AND FORTH INFINATELY! for example:
+        #i need to make a def that returns the current letter pressed and the letter following it and then swap out
+        #arabic_input.text with what ever it returns!
         on_text:
+            #arabic = arabic_input.text
+            #reshaped_text= arabic_reshaper.reshape(arabic)
+            #bidi_text = get_display(reshaped_text)
+            #arabic_input.text = bidi_text
+            #button_list = []
+
+            #left arrow key event here?
+            #left
+
             arabic_input.text = get_mirrored_arabic(arabic_input.text)
+
             #arabic_reshaper.reshape(arabic_input.text)
             #bidi_text = bibi.algorithm.get_display(arabic_input.text)
         font_size: '22dp'
