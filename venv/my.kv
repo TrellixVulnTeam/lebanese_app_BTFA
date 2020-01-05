@@ -26,11 +26,13 @@
 #from bidi import algorithm
 #from algorithm import get_display
 
-#:import get_mirrored_arabic lebanese.arabic_direction.get_mirrored_arabic
+#import get_mirrored_arabic lebanese.arabic_direction.get_mirrored_arabic
 
 #import arabic_reshaper arabic_reshaper
 #import algorithm bidi.algorithm
 
+#import last_button main.last_button
+#:import arabic_left arabic_direction.arabic_left
 
 FloatLayout:
     font_name: 'ariel'
@@ -85,8 +87,18 @@ FloatLayout:
 
             #left arrow key event here?
             #left
+            #new_string = new_string.insert(0, current_button)
 
-            arabic_input.text = get_mirrored_arabic(arabic_input.text)
+            #arabic_string = [arabic_input.text]
+            #if arabic_string != None:
+            #last_button = arabic_string[len(arabic_string)-1]
+            #arabic_string = arabic_string.pop(last_button)
+            #arabic_string = arabic_string.insert(0, last_button)
+            #return_string = "".join(arabic_string)
+            #arabic_input.text = return_string
+
+            #arabic_input.text = arabic_left(current_string, last_button)
+            #arabic_input.text = get_mirrored_arabic(arabic_input.text)
 
             #arabic_reshaper.reshape(arabic_input.text)
             #bidi_text = bibi.algorithm.get_display(arabic_input.text)

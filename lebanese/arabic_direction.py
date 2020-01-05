@@ -6,16 +6,42 @@ import kivy.uix.label
 #reshaped_text = arabic_reshaper.reshape(text_to_be_reshaped)
 
 #def left_arrow_press()
+def arabic_left(current_string, current_key):
+    new_string = current_string
+    if len(new_string) != None:
+
+    #if new_string == old_string:
+
+        new_string = new_string.insert(0, current_key)
+        return_string = "".join(new_string)
+        return return_string
+    #old_string = new_string
 
 
+"""
 import arabic_reshaper
+import bidi
 from bidi.algorithm import get_display
 def get_mirrored_arabic(arabic):
     arabic_words = arabic
-    reshaped_text = arabic_reshaper.reshape(arabic_words)
-    bidi_text = get_display(reshaped_text)
-    return bidi_text
+    arabic_memory = arabic
 
+    if arabic == None:
+        return ""
+    if arabic != None and len(arabic) > 0:
+        arabic_words = arabic[len(arabic)-1]
+        mytext = bidi.algorithm.get_display(arabic_reshaper.reshape(arabic_words))
+        mytext = arabic_memory + mytext
+        return mytext
+    #reshaped_text = arabic_reshaper.reshape(arabic_words)
+    #bidi_text = get_display(reshaped_text)
+    #return bidi_text
+
+    mytext = bidi.algorithm.get_display(arabic_reshaper.reshape(arabic_words))
+    mytext = arabic_memory + mytext
+    return mytext
+
+"""
 #def get_mirrored_arabic(arabic):
  #   arabic_words = arabic
     #print(arabic_words)

@@ -42,17 +42,13 @@ from kivy.app import App
 class TranslatorWidget(Widget):
     lebanese_arabic_text_input = ObjectProperty()
 
-    import arabic_reshaper
-    from bidi.algorithm import get_display
-    def get_mirrored_arabic(arabic):
-        arabic_words = arabic
-        reshaped_text = arabic_reshaper.reshape(arabic_words)
-        bidi_text = get_display(reshaped_text)
-        return bidi_text
-
-
-class KeyDown(App):
-    pass
+    #import arabic_reshaper
+    #from bidi.algorithm import get_display
+    #def get_mirrored_arabic(arabic):
+     #   arabic_words = arabic
+      #  reshaped_text = arabic_reshaper.reshape(arabic_words)
+       # bidi_text = get_display(reshaped_text)
+        #return bidi_text
 
     #test_word = StringProperty("")
     #value = StringProperty("")
@@ -60,9 +56,28 @@ class KeyDown(App):
 class MyApp(App):
     def build(self):
         Window.bind(on_key_down=self.key_action)
-        return Widget()
     def key_action(self, *args):
         print("got a key event: %s" % list(args))
+        last_button = args[len(args)-2]
+        print(last_button)
+        #from lebanese.arabic_direction import get_mirrored_arabic
+        #arabic_input = last_button
+        #arabic_input = get_mirrored_arabic(arabic_input)
+        #if last_button != None:
+         #   Window.bind(on_key_down=self.key_action(<kivy.core.window.window_sdl2.WindowSDL object at 0x040431B8>, 276, 80, None, []))
+            #force_left(<kivy.core.window.window_sdl2.WindowSDL object at 0x040431B8>, 276, 80, None, [])
+    #def force_left(self, window, key, scancode, codepoint, modifiers):
+     #   Window.bind(on_key_down=self.
+      #      on_key_down= (self, window, key, scancode, codepoint, modifiers)
+       #     return
+
+    import arabic_reshaper
+    from bidi.algorithm import get_display
+    def get_mirrored_arabic(arabic):
+        arabic_words = arabic
+        reshaped_text = arabic_reshaper.reshape(arabic_words)
+        bidi_text = get_display(reshaped_text)
+        return bidi_text
    # def build(self):
      #   return TranslatorWidget()
 
