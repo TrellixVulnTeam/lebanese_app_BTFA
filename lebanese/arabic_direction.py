@@ -6,7 +6,7 @@ import kivy.uix.label
 #reshaped_text = arabic_reshaper.reshape(text_to_be_reshaped)
 
 #def left_arrow_press()
-def arabic_left(current_string, current_key):
+"""def arabic_left(current_string, current_key):
     new_string = current_string
     if len(new_string) != None:
 
@@ -14,7 +14,7 @@ def arabic_left(current_string, current_key):
 
         new_string = new_string.insert(0, current_key)
         return_string = "".join(new_string)
-        return return_string
+        return return_string"""
     #old_string = new_string
 
 
@@ -42,12 +42,14 @@ def get_mirrored_arabic(arabic):
     return mytext
 
 """
-#def get_mirrored_arabic(arabic):
- #   arabic_words = arabic
+import arabic_reshaper
+import bidi.algorithm
+def get_mirrored_arabic(arabic):
+    arabic_words = arabic
     #print(arabic_words)
- #   reshaped_text = arabic_reshaper.reshape(arabic_words)
-#    bidi_text = bidi.algorithm.get_display(reshaped_text)
-  #  return bidi_text
+    reshaped_text = arabic_reshaper.reshape(arabic_words)
+    bidi_text = bidi.algorithm.get_display(reshaped_text)
+    return bidi_text
 
 
 

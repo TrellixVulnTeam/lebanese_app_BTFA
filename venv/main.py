@@ -12,9 +12,142 @@ from breakdown_lebanese import arabic_break_down
 from lebanese import lebanese_to_roman
 from lebanese_to_roman import arabic_to_roman_replace
 
+
+import kivy.app
+import kivy.uix.label
+import kivy.uix.button
+import kivy.uix.textinput
+import kivy.uix.boxlayout
+import kivy.uix.image
+import kivy.uix.floatlayout
+import arabic_reshaper
+import bidi.algorithm
+from kivy.uix.textinput import TextInput
+from kivy.properties import NumericProperty, StringProperty
+
+class Ar_text(TextInput):
+    max_chars = NumericProperty(20)  # maximum character allowed
+    str = StringProperty()
+
+    def __init__(self, **kwargs):
+        super(Ar_text, self).__init__(**kwargs)
+        self.text = bidi.algorithm.get_display(arabic_reshaper.reshape("اطبع شيئاً"))
+
+    def insert_text(self, substring, from_undo=False):
+        if not from_undo and (len(self.text) + len(substring) > self.max_chars):
+            return
+
+        self.str = self.str+substring
+        self.text = bidi.algorithm.get_display(arabic_reshaper.reshape(self.str))
+        substring = ""
+        super(Ar_text, self).insert_text(substring, from_undo)
+        print("A")
+
+    def do_backspace(self, from_undo=False, mode='bkspc'):
+        self.str = self.str[0:len(self.str)-1]
+        self.text = bidi.algorithm.get_display(arabic_reshaper.reshape(self.str))
+        print("B")
+
+class MyApp(kivy.app.App):
+    def build(self):
+        #reshaping arabic
+        reshaped_text = arabic_reshaper.reshape("بسم اللَّه")
+        bidi_text = bidi.algorithm.get_display(reshaped_text)
+
+        #getting float_layout
+        float_layout = kivy.uix.floatlayout.FloatLayout()
+        background_image = kivy.uix.image.Image(source='C:/Users/natha/PycharmProjects/translator/venv/images/background.png')
+        float_layout.add_widget(background_image)
+
+
+        #boxLayout = kivy.uix.boxlayout.BoxLayout(orientation="vertical")
+        # label = kivy.uix.label.Label(text=bidi_text, font_name="arial")
+        #boxLayout.add_widget(label)
+
+        #arabic inputbox
+        text_input = Ar_text(text=bidi_text, font_name="arial", id='arabic_input', size_hint=(.8, .2),
+                             pos_hint={'center_x': .5, 'center_y': .78}, multiline=False, font_size='22dp',
+                             background_color=[1, 1, 1, 1], foreground_color=[0, 0, 0, 1])
+        float_layout.add_widget(text_input)
+
+
+        # button = kivy.uix.button.Button(text=bidi_text, font_name="arial")
+        #boxLayout.add_widget(button)
+
+
+        return float_layout
+"""
+    FloatLayout:
+    font_name: 'ariel'
+    # here is your background
+
+
+
+# here you can add other widgets and place their positions, like so:
+Button:
+id: arabic_convert_button
+text: 'Convert!'
+on_release:
+print('test from the button!')
+arabic_output.text = breakdown_lebanese.arabic_break_down(arabic_input.text) + press_enter.text
+arabic_output.text += lebanese_to_roman.arabic_to_roman_replace(
+    arabic_input.text) + equals.text + arabic_input.text + press_enter.text
+arabic_output.text += lebanese_to_roman.get_word_breakdown(arabic_input.text) + press_enter.text
+arabic_output.text += lebanese_to_roman.get_new_roman_string(arabic_input.text) + press_enter.text
+# some_label.text = ' button pushed!'
+size_hint: .2, .3
+pos_hint: {'center_x': .5, 'center_y': .5}
+Label:
+id: some_label
+text: 'Characters'
+size_hint: 1, .2
+font_size: '16dp'
+pos_hint: {'x': -0.45, 'y': 0.19}
+color: [0, 0, 1, 1]
+
+Label:
+id: arabic_label
+text: "Input arabic word to have it translated: "
+size_hint: 1, .2
+font_size: '24dp'
+pos_hint: {'x': 0, 'y': .8}
+font_name: 'arial'
+TextInput:
+id: arabic_output
+size_hint: .8, .2
+pos_hint: {'center_x': .5, 'center_y': .22}
+multiline: True
+text: ''
+font_size: '22dp'
+font_name: 'arial'
+#  if len(test_word) != None:
+#     text = arabic_input
+# on_text_validate:
+
+#   test_word
+#  #arabic_label.text = ' TESTING DUDE!'
+Label:
+id: press_enter
+text: '\n'
+size_hint: 0, 0.1
+Label:
+id: equals
+text: ' = '
+size_hint: 0, 0.2
+
+
+
+"""
+
+if __name__ == '__main__':
+    MyApp().run()
+
+
+
+
 #importing kivy stuff
 import kivy
-kivy.require('1.11.1') # replace with your current kivy version !
+kivy.require('1.11.1')
 #from kivy.config import Config
 #Config.set('modules', 'screen', 'phone_samsung_galaxy_s5')
 from kivy.app import App
@@ -32,54 +165,21 @@ from kivy.uix.image import Image
 from kivy.properties import ObjectProperty, NumericProperty, StringProperty
 from kivy.core.window import Window
 
-import kivy
-
-kivy.require('1.11.1')  # replace with your current kivy version !
-# from kivy.config import Config
-# Config.set('modules', 'screen', 'phone_samsung_galaxy_s5')
-from kivy.app import App
-
-class TranslatorWidget(Widget):
-    lebanese_arabic_text_input = ObjectProperty()
-
-    #import arabic_reshaper
-    #from bidi.algorithm import get_display
-    #def get_mirrored_arabic(arabic):
-     #   arabic_words = arabic
-      #  reshaped_text = arabic_reshaper.reshape(arabic_words)
-       # bidi_text = get_display(reshaped_text)
-        #return bidi_text
-
-    #test_word = StringProperty("")
-    #value = StringProperty("")
-
+import arabic_reshaper
+import bidi.algorithm
 class MyApp(App):
     def build(self):
+
+
+
+
+
         Window.bind(on_key_down=self.key_action)
     def key_action(self, *args):
         print("got a key event: %s" % list(args))
         last_button = args[len(args)-2]
         print(last_button)
-        #from lebanese.arabic_direction import get_mirrored_arabic
-        #arabic_input = last_button
-        #arabic_input = get_mirrored_arabic(arabic_input)
-        #if last_button != None:
-         #   Window.bind(on_key_down=self.key_action(<kivy.core.window.window_sdl2.WindowSDL object at 0x040431B8>, 276, 80, None, []))
-            #force_left(<kivy.core.window.window_sdl2.WindowSDL object at 0x040431B8>, 276, 80, None, [])
-    #def force_left(self, window, key, scancode, codepoint, modifiers):
-     #   Window.bind(on_key_down=self.
-      #      on_key_down= (self, window, key, scancode, codepoint, modifiers)
-       #     return
 
-    import arabic_reshaper
-    from bidi.algorithm import get_display
-    def get_mirrored_arabic(arabic):
-        arabic_words = arabic
-        reshaped_text = arabic_reshaper.reshape(arabic_words)
-        bidi_text = get_display(reshaped_text)
-        return bidi_text
-   # def build(self):
-     #   return TranslatorWidget()
 
 if __name__ == '__main__':
     MyApp().run()

@@ -32,7 +32,8 @@
 #import algorithm bidi.algorithm
 
 #import last_button main.last_button
-#:import arabic_left arabic_direction.arabic_left
+#import arabic_left arabic_direction.arabic_left
+
 
 FloatLayout:
     font_name: 'ariel'
@@ -68,44 +69,6 @@ FloatLayout:
         pos_hint: {'x': 0, 'y': .8}
         font_name: 'arial'
     TextInput:
-        id: arabic_input
-        size_hint: .8, .2
-        pos_hint: {'center_x': .5, 'center_y': .78}
-        multiline: False
-        text: ''
-        #text_autoupdate: True
-
-        #THIS IS THE BUG! ON_TEXT MAKES IT SWAP BACK AND FORTH INFINATELY! for example:
-        #i need to make a def that returns the current letter pressed and the letter following it and then swap out
-        #arabic_input.text with what ever it returns!
-        on_text:
-            #arabic = arabic_input.text
-            #reshaped_text= arabic_reshaper.reshape(arabic)
-            #bidi_text = get_display(reshaped_text)
-            #arabic_input.text = bidi_text
-            #button_list = []
-
-            #left arrow key event here?
-            #left
-            #new_string = new_string.insert(0, current_button)
-
-            #arabic_string = [arabic_input.text]
-            #if arabic_string != None:
-            #last_button = arabic_string[len(arabic_string)-1]
-            #arabic_string = arabic_string.pop(last_button)
-            #arabic_string = arabic_string.insert(0, last_button)
-            #return_string = "".join(arabic_string)
-            #arabic_input.text = return_string
-
-            #arabic_input.text = arabic_left(current_string, last_button)
-            #arabic_input.text = get_mirrored_arabic(arabic_input.text)
-
-            #arabic_reshaper.reshape(arabic_input.text)
-            #bidi_text = bibi.algorithm.get_display(arabic_input.text)
-        font_size: '22dp'
-        font_name: 'arial'
-
-    TextInput:
         id: arabic_output
         size_hint: .8, .2
         pos_hint: {'center_x': .5, 'center_y': .22}
@@ -127,5 +90,4 @@ FloatLayout:
         id: equals
         text: ' = '
         size_hint: 0,0.2
-
 
