@@ -81,18 +81,19 @@ class MyApp(kivy.app.App):
             typed_text = "بسم اللَّه"
             reshaped_text = arabic_reshaper.reshape(typed_text)
             bidi_text = bidi.algorithm.get_display(reshaped_text)
-            return bidi_text, typed_text
+            return bidi_text
 
         #on_text: self.your_variable = self.text
 
        # memory_var =
 
-        def new_typed_text(self, *args):
-            self.arabic_input = typed_text.text
+      #  def new_typed_text(self, *args):
+       #     self.arabic_input = typed_text.text
+
          #   self.memory_var = self.arabic_input
 
         #arabic inputbox on_text=get_bidi_text(self)
-        arabic_input = Ar_text(text=get_bidi_text(self), on_text=new_typed_text(self), font_name="arial", id='arabic_input', size_hint=(.8, .2),
+        arabic_input = Ar_text(text=get_bidi_text(self), font_name="arial", id='arabic_input', size_hint=(.8, .2),
                              pos_hint={'center_x': .5, 'center_y': .78}, multiline=False, font_size='22dp',
                              background_color=[1, 1, 1, 1], foreground_color=[0, 0, 0, 1])
 
