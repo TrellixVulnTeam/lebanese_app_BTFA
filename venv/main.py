@@ -49,10 +49,8 @@ class Ar_text(TextInput):
         print("B")
 
 class MyApp(kivy.app.App):
+
     def build(self):
-        #reshaping arabic
-        reshaped_text = arabic_reshaper.reshape("بسم اللَّه")
-        bidi_text = bidi.algorithm.get_display(reshaped_text)
 
         #getting float_layout
         float_layout = kivy.uix.floatlayout.FloatLayout()
@@ -64,13 +62,95 @@ class MyApp(kivy.app.App):
         # label = kivy.uix.label.Label(text=bidi_text, font_name="arial")
         #boxLayout.add_widget(label)
 
-        #arabic inputbox
-        text_input = Ar_text(text=bidi_text, font_name="arial", id='arabic_input', size_hint=(.8, .2),
+        """def check_text(self):
+            if first_typed != "":
+                print("testing")
+                def set_last_text(self, *args):
+                    last_typed = ""
+                    last_typed = arabic_input
+                    return print("another test")
+            else:
+
+                first_typed = ""
+
+                return first_typed"""
+
+    # reshaping arabic
+
+        def get_bidi_text(self, *args):
+            typed_text = "بسم اللَّه"
+            reshaped_text = arabic_reshaper.reshape(typed_text)
+            bidi_text = bidi.algorithm.get_display(reshaped_text)
+            return bidi_text, typed_text
+
+        #on_text: self.your_variable = self.text
+
+       # memory_var =
+
+        def new_typed_text(self, *args):
+            self.arabic_input = typed_text.text
+         #   self.memory_var = self.arabic_input
+
+        #arabic inputbox on_text=get_bidi_text(self)
+        arabic_input = Ar_text(text=get_bidi_text(self), on_text=new_typed_text(self), font_name="arial", id='arabic_input', size_hint=(.8, .2),
                              pos_hint={'center_x': .5, 'center_y': .78}, multiline=False, font_size='22dp',
                              background_color=[1, 1, 1, 1], foreground_color=[0, 0, 0, 1])
-        float_layout.add_widget(text_input)
+
+        """
+        <MyApp>:
+            arabic_input:
+                on_text: self.memory_var = self.arabic_input
+        """
+        float_layout.add_widget(arabic_input)
+
+        #adding the explainers
+        characters_label = kivy.uix.label.Label(text='Characters', size_hint=[1,.2], font_size= '16dp', pos_hint={'x': -0.45, 'y': 0.19}, color=[0, 0, 1, 1])
+        float_layout.add_widget(characters_label)
 
 
+
+        #adding arabic label at top of screen
+        arabic_label = kivy.uix.label.Label(text="Input arabic word to have it translated: ", size_hint=[1, .2], font_size='24dp',
+                                            pos_hint={'x': 0, 'y': .8}, font_name='arial')
+        float_layout.add_widget(arabic_label)
+
+        #adding the output box that the translated arabic goes to.
+        arabic_output_box = Ar_text(size_hint=[.8, .2], pos_hint={'center_x': .5, 'center_y': .22}, multiline=True, text="", font_size='22dp',
+                                font_name='arial', id='output_box')
+        float_layout.add_widget(arabic_output_box)
+
+
+
+        # adding the button
+        arabic_convert_button = kivy.uix.button.Button(text='Convert!', on_release=lambda x: arabic_translator(self),
+                                                       size_hint=[.2, .3],
+                                                       pos_hint={'center_x': .5, 'center_y': .5})
+        float_layout.add_widget(arabic_convert_button)
+
+        # this function is for the button below, its position is important so as to allow it to load
+        def arabic_translator(self, *args):
+            # print('test from the button!')
+            press_enter = "\n"
+            equals = " = "
+            arabic_output = breakdown_lebanese.arabic_break_down(get_bidi_text(self)) + press_enter
+            arabic_output += lebanese_to_roman.arabic_to_roman_replace(get_bidi_text(self)) + equals + get_bidi_text(self) + press_enter
+            arabic_output += lebanese_to_roman.get_word_breakdown(get_bidi_text(self)) + press_enter
+            arabic_output += lebanese_to_roman.get_new_roman_string(get_bidi_text(self)) + press_enter
+            print(arabic_output)
+
+            arabic_output_box.text = arabic_output
+
+            return arabic_output_box.text
+            #= arabic_output
+
+        #  if len(test_word) != None:
+        #     text = arabic_input
+        # on_text_validate:
+
+        #
+
+
+        # some_label.text = ' button pushed!'
         # button = kivy.uix.button.Button(text=bidi_text, font_name="arial")
         #boxLayout.add_widget(button)
 
@@ -84,56 +164,9 @@ class MyApp(kivy.app.App):
 
 
 # here you can add other widgets and place their positions, like so:
-Button:
-id: arabic_convert_button
-text: 'Convert!'
-on_release:
-print('test from the button!')
-arabic_output.text = breakdown_lebanese.arabic_break_down(arabic_input.text) + press_enter.text
-arabic_output.text += lebanese_to_roman.arabic_to_roman_replace(
-    arabic_input.text) + equals.text + arabic_input.text + press_enter.text
-arabic_output.text += lebanese_to_roman.get_word_breakdown(arabic_input.text) + press_enter.text
-arabic_output.text += lebanese_to_roman.get_new_roman_string(arabic_input.text) + press_enter.text
-# some_label.text = ' button pushed!'
-size_hint: .2, .3
-pos_hint: {'center_x': .5, 'center_y': .5}
-Label:
-id: some_label
-text: 'Characters'
-size_hint: 1, .2
-font_size: '16dp'
-pos_hint: {'x': -0.45, 'y': 0.19}
-color: [0, 0, 1, 1]
 
-Label:
-id: arabic_label
-text: "Input arabic word to have it translated: "
-size_hint: 1, .2
-font_size: '24dp'
-pos_hint: {'x': 0, 'y': .8}
-font_name: 'arial'
-TextInput:
-id: arabic_output
-size_hint: .8, .2
-pos_hint: {'center_x': .5, 'center_y': .22}
-multiline: True
-text: ''
-font_size: '22dp'
-font_name: 'arial'
-#  if len(test_word) != None:
-#     text = arabic_input
-# on_text_validate:
 
-#   test_word
-#  #arabic_label.text = ' TESTING DUDE!'
-Label:
-id: press_enter
-text: '\n'
-size_hint: 0, 0.1
-Label:
-id: equals
-text: ' = '
-size_hint: 0, 0.2
+
 
 
 
