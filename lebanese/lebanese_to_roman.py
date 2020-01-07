@@ -45,6 +45,7 @@ def get_word_breakdown(testword):
   #  keep a copy like this though becuase the م ع <-- مع   and     ا ل س ل ا م ة <-- السلامة format is really good to look at
 
     split_words = test_word.split(" ")
+    split_words.reverse()
     word_breakdown = ""
     for word in range(len(split_words)):
         current_word = split_words[word]
@@ -70,12 +71,31 @@ def get_new_roman_string(testword):
     new_roman_string = ""
     for word in range(len(split_words)):
         current_word = split_words[word]
+        current_word = current_word[::-1]
         for letter in range(len(current_word)):
-            if current_word[letter] in dictionary:
+            #print(letter)
+
+            #I might have to use "unicodedata" module to check if the letter is in dictionary.
+
+            #THE BUG IS THAT I DIDN'T ACCOUNT FOR FRONT MIDDLE AND END TYPE CHARACTERS FOR EACH CHARACTERS
+            #THATS WHY EVEN IF I ADD NEW STRINGS IN IT DOESN'T UNDERSTAND ALL THE FORMS!
+            #I NEED TO GET THE START WORDS MIDDLE WORDS AND END WORDS AS SEPERATE DICTIONARIES
+            if current_word[letter] in dictionary_x:
+                print(letter, current_word[letter])
+                new_roman_string += dictionary_x[current_word[letter]]
+            elif current_word[letter] in maybe:
+                new_roman_string += current_word[letter] + "THIS IS IT"
+            elif current_word[letter] in third_test_dictionary:
+                new_roman_string += current_word[letter] + "FOUND FOUND, \n"
+            elif current_word[letter] in another_test_dictionary:
+                new_roman_string += f"CHARACTER {letter} SUCCESS"
+            elif current_word[letter] in big_dictionary:
+                new_roman_string += "FOUND IN big_dictionary, This is probably an error that I need to fix"
+            elif current_word[letter] in dictionary:
                 new_roman_string += dictionary[current_word[letter]]
             elif current_word[letter] in dictionary_vowels:
                 new_roman_string += dictionary_vowels[current_word[letter]]
-           ###replace these with a dictionary for punctuaton in arabic
+            ###replace these with a dictionary for punctuaton in arabic
             elif current_word[letter] == "؟": #some kind of question mark used in arabic instead of ? since arabic is backwards.
                 new_roman_string += "?"
             elif current_word[letter] == ",":
