@@ -58,6 +58,7 @@ class MyApp(kivy.app.App):
         float_layout = kivy.uix.floatlayout.FloatLayout()
         background_image = kivy.uix.image.Image(source='C:/Users/natha/PycharmProjects/translator/venv/images/background.png')
         background_image.allow_stretch = True
+        background_image.keep_ratio = False
         float_layout.add_widget(background_image)
 
 
@@ -106,12 +107,12 @@ class MyApp(kivy.app.App):
         characters_label = kivy.uix.label.Label(text='Characters', size_hint=[1,.2], font_size= '16dp', pos_hint={'x': -0.45, 'y': 0.19}, color=[0, 0, 1, 1])
         float_layout.add_widget(characters_label)
 
-        current_bugs = kivy.uix.textinput.TextInput(text='CURRENT BUGS \n* \n*missing phenetics\n*\n*', font_name="C:/Windows/Fonts/arial.ttf", id='current_bugs', size_hint=(.3, .3),
+        current_bugs = kivy.uix.textinput.TextInput(text='CURRENT BUGS \n*seperate vowels and letters in dictionaries \n*missing phenetics\n*assign keep_ratio=false to everything\n*certain letter change sound based on what they are connected to, ie min and ', font_name="C:/Windows/Fonts/arial.ttf", id='current_bugs', size_hint=(.3, .3),
                              pos_hint={'center_x': .8, 'center_y': .5}, multiline=True, font_size='16dp',
                              background_color=[1, 1, 1, 1], foreground_color=[0, 0, 0, 1])
         float_layout.add_widget(current_bugs)
 
-        future_updates = kivy.uix.textinput.TextInput(text='FUTURE UPDATE\n*add arabic vowels \n*add phenetics\n*add dictionary of audio clips\n*mobile support', font_name="C:/Windows/Fonts/arial.ttf", id='future_updates', size_hint=(.3, .3),
+        future_updates = kivy.uix.textinput.TextInput(text='FUTURE UPDATE\n*add phenetics\n*add dictionary of audio clips\n*mobile support\n*icon for convert button\n*border image png for textboxes\n*new background?\n*click on word to pop up word breakdowns and swap between', font_name="C:/Windows/Fonts/arial.ttf", id='future_updates', size_hint=(.3, .3),
                              pos_hint={'center_x': .2, 'center_y': .5}, multiline=True, font_size='16dp',
                              background_color=[1, 1, 1, 1], foreground_color=[0, 0, 0, 1])
         float_layout.add_widget(future_updates)
